@@ -3,30 +3,13 @@ import Link from 'next/link'
 import { Box, Flex, Heading, Button, Icon, Table, Thead, Tr, Th, Checkbox, Tbody, Td, Text, useBreakpointValue, Spinner } from '@chakra-ui/react'
 import { RiAddLine, RiPencilLine } from 'react-icons/ri'
 
-import { useQuery } from 'react-query'
-
 import { Header } from '../../components/Header/Header'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
 import { Pagination } from '../../components/Pagination/Pagination'
+import { useUsers } from '../../services/hooks/useUsers'
 
 export default function UserList() {
-  const { data, isLoading, isFetching, error } = useQuery('users', async () => {
-    const response = await fetch('http://localhost:3000/api/users')
-    const data = await response.json()
-    const users = data.users.map(user => ({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      createdAt: new Date(user.createdAt).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-      })
-    }))
-    return users
-  }, {
-    staleTime: 1000 * 5
-  })
+  const { data, isLoading, isFetching, error } = useUsers()
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -98,7 +81,7 @@ export default function UserList() {
                   ))}
                 </Tbody>
               </Table>
-              <Pagination />
+              <Pagination totalCountOfRegisters={200} currentPage={5} onPageChange={() => {}} />
             </>
           )}
         </Box>
