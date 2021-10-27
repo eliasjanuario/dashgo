@@ -5,16 +5,16 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from '../styles/theme'
 
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from 'react-query'
+
+import { makeServer } from '../services/mirage/mirageConfig'
+import { queryClient } from '../services/queryClient'
 
 import { SidebarDrawerProvider } from '../contexts/SidebarDrawerContext'
 
-import { makeServer } from '../services/mirage/mirageConfig'
 if (process.env.NODE_ENV === 'development') {
   makeServer()
 }
-
-const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

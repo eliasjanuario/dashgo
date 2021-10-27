@@ -42,7 +42,7 @@ export function Pagination({
       <HStack spacing="2">
         {currentPage > (1 + siblingsCount) && (
           <>
-            <PaginationButton number={1} />
+            <PaginationButton onPageChange={onPageChange} number={1} />
             {currentPage > (2 + siblingsCount) && (
               <Text color="gray.300" width="8" textAlign="center">...</Text>
             )}
@@ -50,12 +50,12 @@ export function Pagination({
         )}
 
         {previousPages.length > 0 && previousPages.map(page => {
-          return <PaginationButton key={page} number={page} />
+          return <PaginationButton onPageChange={onPageChange} key={page} number={page} />
         })}
 
-        <PaginationButton number={currentPage} isCurrent />
+        <PaginationButton onPageChange={onPageChange} number={currentPage} isCurrent />
         {nextPages.length > 0 && nextPages.map(page => {
-          return <PaginationButton key={page} number={page} />
+          return <PaginationButton onPageChange={onPageChange} key={page} number={page} />
         })}
 
         {currentPage + siblingsCount < lastPage && (
@@ -63,7 +63,7 @@ export function Pagination({
             {(currentPage + 1 + siblingsCount) < lastPage && (
               <Text color="gray.300" width="8" textAlign="center">...</Text>
             )}
-            <PaginationButton number={lastPage} />
+            <PaginationButton onPageChange={onPageChange} number={lastPage} />
           </>
         )}
       </HStack>
